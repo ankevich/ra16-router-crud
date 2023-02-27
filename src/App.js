@@ -8,6 +8,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/posts/new" element={<NewPost />} />
                 <Route path="/posts/:id" element={<ViewPost />} />
+                <Route path="/posts/:id/edit" element={<EditPost />} />
             </Routes>
         </Router>
     );
@@ -64,16 +65,47 @@ const HomePage = () => {
 
 const ViewPost = () => {
     return (
-        <div className="post">
-            <div className="post__content">
+        <StyledViewPost>
+            <NavLink className="menu__item" to="/">
+                ❌
+            </NavLink>
                 <div className="post__text">Текст поста</div>
-            </div>
             <div className="post__actions">
-                <button className="post__delete">❌</button>
-                <button className="post__edit">Редактировать</button>
+                <NavLink className="post__edit" to="/posts/1/edit">
+                    Редактировать
+                </NavLink>
+                <button className="post__delete">Удалить</button>
             </div>
-        </div>
+        </StyledViewPost>
     );
 };
+
+const EditPost = () => {
+    return (
+        <StyledNewPost>
+            <NavLink className="menu__item" to="/">
+                ❌
+            </NavLink>
+            <textarea className="post-form__textarea" placeholder="Введите текст поста" />
+            <button className="post-form__submit">Сохранить</button>
+        </StyledNewPost>
+    ); };
+
+const StyledViewPost = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .post__actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .post__delete {
+            margin-right: 10px;
+        }
+    }
+
+
+
+`
 
 export default App;

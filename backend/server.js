@@ -9,8 +9,25 @@ const app = new Koa();
 app.use(cors());
 app.use(koaBody({json: true}));
 
-let posts = [];
-let nextId = 1;
+let posts = [
+    {
+        id: 1,
+        content: 'Quick brown fox jumps over the lazy dog',
+        created: Date.now()
+    },
+    {
+        id: 2,
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        created: Date.now()
+    },
+    {
+        id: 3,
+        content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+        created: Date.now()
+    }
+
+];
+let nextId = 3;
 
 const router = new Router();
 

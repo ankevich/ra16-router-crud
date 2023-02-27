@@ -1,6 +1,16 @@
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
+    const [posts, setPosts] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:7777/posts")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setPosts(data);
+            });
+    }, []);
     return (
         <>
             <div className="post-form">
@@ -11,13 +21,15 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="posts">
-                <div className="post">
-                    <div className="post__content">
-                        <NavLink className="post__text" to="/posts/1">
-                            Текст поста
-                        </NavLink>
+                {posts.map(post => (
+                    <div className="post" key={post.id}>
+                        <div className="post__content">
+                            <NavLink className="post__text" to={`/posts/${post.id}`}>
+                                {post.content}
+                            </NavLink>
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
         </>
     );

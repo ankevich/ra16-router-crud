@@ -48,6 +48,16 @@ router.post('/posts', async(ctx, next) => {
     ctx.response.status = 204;
 });
 
+router.get('/posts/:id', async(ctx, next) => {
+    const postId = Number(ctx.params.id);
+    const post = posts.find(o => o.id === postId);
+    if (post) {
+        ctx.response.body = post;
+    } else {
+        ctx.response.status = 404;
+    }
+});
+
 router.delete('/posts/:id', async(ctx, next) => {
     const postId = Number(ctx.params.id);
     const index = posts.findIndex(o => o.id === postId);

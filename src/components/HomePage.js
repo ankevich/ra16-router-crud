@@ -11,6 +11,7 @@ const HomePage = () => {
                 setPosts(data);
             });
     }, []);
+    
     return (
         <>
             <div className="post-form">

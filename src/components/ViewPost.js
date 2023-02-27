@@ -1,13 +1,25 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const ViewPost = () => {
+    const [post, setPost] = useState({});
+    const { id } = useParams();
+    useEffect(() => {
+        fetch(`http://localhost:7777/posts/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setPost(data);
+            });
+    }, []);
+
     return (
         <StyledViewPost>
             <NavLink className="menu__item" to="/">
                 ❌
             </NavLink>
-                <div className="post__text">Текст поста</div>
+            <div className="post__text">{post.content}</div>
             <div className="post__actions">
                 <NavLink className="post__edit" to="/posts/1/edit">
                     Редактировать
@@ -29,6 +41,7 @@ const StyledViewPost = styled.div`
         .post__delete {
             margin-right: 10px;
         }
-    }`
+    }
+`;
 
 export default ViewPost;

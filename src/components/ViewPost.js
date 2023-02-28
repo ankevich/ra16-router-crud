@@ -21,7 +21,7 @@ const ViewPost = () => {
             </NavLink>
             <div className="post__text">{post.content}</div>
             <div className="post__actions">
-                <NavLink className="post__edit" to="/posts/1/edit">
+                <NavLink className="post__edit" to={`/posts/${id}/edit`}>
                     Редактировать
                 </NavLink>
                 <button className="post__delete">Удалить</button>

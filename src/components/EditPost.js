@@ -12,6 +12,7 @@ const EditPost = () => {
             .then(data => {
                 console.log(data)
                 setPost(data)
+                
             })
     }, [])
 
@@ -24,6 +25,7 @@ const EditPost = () => {
             body: JSON.stringify(post),
         }).then(data => {
             console.log(data)
+            window.location.href = `/posts/${id}`
         })
     }
     return (

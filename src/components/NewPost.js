@@ -17,6 +17,7 @@ const NewPost = () => {
         }).then(data => {
             console.log(data);
             setPost({ content: "" });
+            window.location.href = "/"
         });
     };
 
@@ -35,6 +36,7 @@ const NewPost = () => {
                 className="post-form__submit"
                 onClick={() => {
                     AddPost();
+                    
                 }}
             >
                 Опубликовать

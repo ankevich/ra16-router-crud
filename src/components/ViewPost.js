@@ -1,18 +1,18 @@
-import styled from "styled-components";
-import { NavLink, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import styled from "styled-components"
+import { NavLink, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 const ViewPost = () => {
-    const [post, setPost] = useState({});
-    const { id } = useParams();
+    const [post, setPost] = useState({})
+    const { id } = useParams()
     useEffect(() => {
         fetch(`http://localhost:7777/posts/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                setPost(data);
-            });
-    }, []);
+                console.log(data)
+                setPost(data)
+            })
+    }, [])
 
     return (
         <StyledViewPost>
@@ -24,11 +24,23 @@ const ViewPost = () => {
                 <NavLink className="post__edit" to={`/posts/${id}/edit`}>
                     Редактировать
                 </NavLink>
-                <button className="post__delete">Удалить</button>
+                <button
+                    className="post__delete"
+                    onClick={() => {
+                        fetch(`http://localhost:7777/posts/${id}`, {
+                            method: "DELETE",
+                        }).then(data => {
+                            console.log(data)
+                            window.location.href = "/"
+                        })
+                    }}
+                >
+                    Удалить
+                </button>
             </div>
         </StyledViewPost>
-    );
-};
+    )
+}
 
 const StyledViewPost = styled.div`
     display: flex;
@@ -42,6 +54,6 @@ const StyledViewPost = styled.div`
             margin-right: 10px;
         }
     }
-`;
+`
 
-export default ViewPost;
+export default ViewPost

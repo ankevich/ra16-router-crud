@@ -1,14 +1,44 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const NewPost = () => {
+    const [post, setPost] = useState({
+        content: "",
+    });
+
+    const AddPost = () => {
+        fetch("http://localhost:7777/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post),
+        }).then(data => {
+            console.log(data);
+            setPost({ content: "" });
+        });
+    };
+
     return (
         <StyledNewPost>
             <NavLink className="menu__item" to="/">
                 ❌
             </NavLink>
-            <textarea className="post-form__textarea" placeholder="Введите текст поста" />
-            <button className="post-form__submit">Опубликовать</button>
+            <textarea
+                className="post-form__textarea"
+                placeholder="Введите текст поста"
+                value={post.content}
+                onChange={event => setPost({ ...post, content: event.target.value })}
+            />
+            <button
+                className="post-form__submit"
+                onClick={() => {
+                    AddPost();
+                }}
+            >
+                Опубликовать
+            </button>
         </StyledNewPost>
     );
 };
